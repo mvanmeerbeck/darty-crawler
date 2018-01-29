@@ -1,0 +1,14 @@
+{
+    "name": "mvanmeerbeck/darty-crawler",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Maxime Vanmeerbeck",
+            "email": "mvanmeerbeck@shopbot-inc.com"
+        }
+    ],
+    "require": {
+        "symfony/dom-crawler": "^3.4",
+        "fabpot/goutte": "^3.2"
+    }
+}
