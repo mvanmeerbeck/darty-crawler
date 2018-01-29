@@ -16,6 +16,8 @@ foreach ($links as $link) {
     $productCrawler = $client->request('GET', $product['url']);
 
     $product['price'] = $productCrawler->filter('meta[itemprop="price"]')->attr('content');
+    $product['ratingValue'] = $productCrawler->filter('meta[itemprop="ratingValue"]')->attr('content');
+    $product['ratingCount'] = $productCrawler->filter('meta[itemprop="ratingCount"]')->attr('content');
 
     $caracteristicNames = $productCrawler->filter('#product_caracteristics > div.product_bloc_content.bloc.ombre > table > tbody > tr > th')->each(function (\Symfony\Component\DomCrawler\Crawler $node, $i) {
         return $node->text();
@@ -30,7 +32,15 @@ foreach ($links as $link) {
 
     $products[] = $product;
 
-    print_r($products);
-    exit();
     sleep(1);
 }
+
+$handle = fopen('products.csv', 'w');
+
+fputcsv($handle, array_keys($products[0]));
+
+foreach ($products as $product) {
+    fputcsv($handle, $product);
+}
+
+fclose($handle);
